@@ -17,8 +17,8 @@ function GameScreen({number, onGameOver}) {
     bottom: minBoundary,
   })
 
-  useEffect(() => {
-    if (number === currentGuess) {
+  useEffect(() => {    
+    if (number === currentGuess.guess) {            
       onGameOver()
     }
   }, [number, currentGuess])
@@ -46,7 +46,8 @@ function GameScreen({number, onGameOver}) {
 
 
   return <View style={[styles.screen, styles.text]}>
-    <Title>{hasWon ? "Woohoo!" : "Opponent's Guess:"}</Title>
+    {/* <Title>{hasWon ? "Woohoo!" : "Opponent's Guess:"}</Title> */}
+    <Title>Opponent's Guess:</Title>
     
     {console.log(`${number} ${currentGuess.guess}`)}
     <NumberContainer>{currentGuess.guess}</NumberContainer>

@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
-import { Alert, StyleSheet, TextInput, View } from 'react-native'
+import { Alert, StyleSheet, TextInput, View, Text } from 'react-native'
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Colors from '../constants/colors';
+import Title from '../components/ui/Title';
 
 function StartGameScreen({onConfirm}) {
   const [enteredNumber, setEnteredNumber] = useState('')
@@ -31,29 +32,42 @@ function StartGameScreen({onConfirm}) {
     setEnteredNumber('')
   }
 
-  return (<View style={styles.container}>
-    <TextInput 
-      style={styles.numberInput} 
-      maxLength={2} 
-      onChangeText={handleChange}
-      keyboardType='number-pad'
-      autoCorrect={false}
-      autoCapitalize='none'
-      value={enteredNumber}/>
-    <View style={styles.buttonsContainer}>
-      <View style={styles.buttonContainer}>
-        <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>    
+  return (
+    <View style={styles.rootContainer}>
+      <Title>Guess my number</Title>
+      <View style={styles.container}>
+        <Text style={styles.instructionText}>Enter a Number</Text>
+        <TextInput 
+          style={styles.numberInput} 
+          maxLength={2} 
+          onChangeText={handleChange}
+          keyboardType='number-pad'
+          autoCorrect={false}
+          autoCapitalize='none'
+          value={enteredNumber}/>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>    
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>    
+          </View>
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>    
-      </View>
-    </View>
   </View>)
 }
 
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    marginTop: 100,
+  },
+  instructionText: {
+    color: Colors.accent500,
+    fontSize: 24,
+  },
   buttonsContainer: {
     flexDirection: 'row',
     borderWidth: 1,
@@ -69,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',    
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: 36,
     marginHorizontal: 24,
     padding: 16,
     backgroundColor: Colors.primary800,

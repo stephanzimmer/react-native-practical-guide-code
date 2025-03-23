@@ -14,9 +14,8 @@ export default function App() {
   function handlePickedNumber(pickedNumber) {
     console.log(pickedNumber);
     setUserNumber(pickedNumber)
+    setIsGameOver(false)
   }
-
-
 
   let screen = <StartGameScreen onConfirm={handlePickedNumber}/>
 
@@ -24,14 +23,18 @@ export default function App() {
     screen = <GameScreen number={userNumber} onGameOver={handleGameOver} />
   }
 
-  if (isGameOver) {
-    screen = <GameOverScreen />
+  if (isGameOver && userNumber) {
+    screen = <GameOverScreen onRestart={handleRestart}/>
   }
 
 
   function handleGameOver() {
-    setUserNumber(undefined)
+    console.log("GAME OVER")    
     setIsGameOver(true)
+  }
+
+  function handleRestart() {
+    setUserNumber(undefined)
   }
 
   return (
