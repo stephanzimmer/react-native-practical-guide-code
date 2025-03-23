@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,14 +16,12 @@ export default function App() {
     setUserNumber(pickedNumber)
   }
 
-  useEffect(() => {
-    
-  }, [])
+
 
   let screen = <StartGameScreen onConfirm={handlePickedNumber}/>
 
   if (userNumber) {
-    screen = <GameScreen number={userNumber} />
+    screen = <GameScreen number={userNumber} onGameOver={handleGameOver} />
   }
 
   if (isGameOver) {
