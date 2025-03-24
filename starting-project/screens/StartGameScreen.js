@@ -4,6 +4,8 @@ import { Alert, StyleSheet, TextInput, View, Text } from 'react-native'
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Colors from '../constants/colors';
 import Title from '../components/ui/Title';
+import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/InstructionText';
 
 function StartGameScreen({onConfirm}) {
   const [enteredNumber, setEnteredNumber] = useState('')
@@ -35,8 +37,8 @@ function StartGameScreen({onConfirm}) {
   return (
     <View style={styles.rootContainer}>
       <Title>Guess my number</Title>
-      <View style={styles.container}>
-        <Text style={styles.instructionText}>Enter a Number</Text>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
         <TextInput 
           style={styles.numberInput} 
           maxLength={2} 
@@ -53,7 +55,7 @@ function StartGameScreen({onConfirm}) {
             <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>    
           </View>
         </View>
-      </View>
+      </Card>
   </View>)
 }
 

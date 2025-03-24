@@ -5,6 +5,9 @@ import Title from '../components/ui/Title'
 import generateRandomBetween from '../extra-files/logic/random'
 import Colors from '../constants/colors'
 import NumberContainer from '../components/game/NumberContainer'
+import Card from '../components/ui/Card'
+import InstructionText from '../components/ui/InstructionText'
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 
 const minBoundary = 1
 const maxBoundary = 100
@@ -15,11 +18,13 @@ function GameScreen({number, onGameOver}) {
     guess: initialGuess,
     top: maxBoundary,
     bottom: minBoundary,
+    moves: 0,
+    number
   })
 
   useEffect(() => {    
     if (number === currentGuess.guess) {            
-      onGameOver()
+      onGameOver(currentGuess)
     }
   }, [number, currentGuess])
 
@@ -28,6 +33,7 @@ function GameScreen({number, onGameOver}) {
     setCurrentGuess({
       ...currentGuess,
       bottom: currentGuess.guess,      
+      moves: currentGuess.moves+1,
       guess      
     })
   }
@@ -37,6 +43,7 @@ function GameScreen({number, onGameOver}) {
     setCurrentGuess({
       ...currentGuess,
       top: currentGuess.guess,
+      moves: currentGuess.moves+1,
       guess      
     })       
   }
@@ -45,24 +52,27 @@ function GameScreen({number, onGameOver}) {
   
 
 
-  return <View style={[styles.screen, styles.text]}>
-    {/* <Title>{hasWon ? "Woohoo!" : "Opponent's Guess:"}</Title> */}
+  return <View style={[styles.screen, styles.text]}>    
     <Title>Opponent's Guess:</Title>
     
     {console.log(`${number} ${currentGuess.guess}`)}
     <NumberContainer>{currentGuess.guess}</NumberContainer>
-    <View>
-      <Text style={styles.text}>Higher or lower?</Text>
-    </View>
-    {hasWon || <View style={styles.buttonsContainer}>
+    <Card>
+      <InstructionText>Higher or lower?</InstructionText>
+    
+      {hasWon || <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={handlePlus}>+</PrimaryButton>    
+          <PrimaryButton onPress={handlePlus}>
+            <EvilIcons name="plus" size={24} color="white" />
+          </PrimaryButton>    
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={handleMinus}>-</PrimaryButton>    
+          <PrimaryButton onPress={handleMinus}>
+            <EvilIcons name="minus" size={24} color="white" />
+          </PrimaryButton>    
         </View>
       </View>}
-      
+      </Card>
     </View>
   }
 
@@ -71,16 +81,15 @@ export default GameScreen
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 40,
-    // alignItems: 'center',
-    // justifyContent: 'center',    
+    padding: 40,    
   }, 
   buttonsContainer: {
-    flex: 1,    
-    flexDirection: 'column',
+      
+    flexDirection: 'row',
     borderWidth: 1,
     borderColor: Colors.buttonBorder,    
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    padding: 2,
   },
   buttonContainer: {    
     marginHorizontal: 8,

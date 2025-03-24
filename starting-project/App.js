@@ -6,10 +6,24 @@ import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
 import Colors from './constants/colors';
+//import { useFonts } from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen';
+
 
 export default function App() {
-  const [userNumber, setUserNumber] = useState()
+  const [userNumber, setUserNumber] = useState()  
   const [isGameOver, setIsGameOver] = useState()
+  const [guesses, setGuesses] = useState({})
+  
+
+  // const [fontsLoaded] = useFonts({
+  //   'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+  //   'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+  // })
+
+  // if (fontsLoaded) {
+  //   SplashScreen.hideAsync()
+  // }
 
   function handlePickedNumber(pickedNumber) {
     console.log(pickedNumber);
@@ -24,13 +38,14 @@ export default function App() {
   }
 
   if (isGameOver && userNumber) {
-    screen = <GameOverScreen onRestart={handleRestart}/>
+    screen = <GameOverScreen onRestart={handleRestart} guesses={guesses}/>
   }
 
 
-  function handleGameOver() {
+  function handleGameOver(currentGuess) {
     console.log("GAME OVER")    
-    setIsGameOver(true)
+    setGuesses(currentGuess)
+    setIsGameOver(true)    
   }
 
   function handleRestart() {
@@ -61,3 +76,16 @@ const styles = StyleSheet.create({
     flex: 1,        
   },
 });
+
+
+
+// "plugins": [
+//   [
+//     "expo-font",
+//     {
+//       "fonts": [
+//         "./assets/fonts/OpenSans-Regular.ttf", 
+//         "./assets/fonts/OpenSans-Bold.ttf"]
+//     }
+//   ]
+// ],
