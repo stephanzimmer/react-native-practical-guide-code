@@ -1,23 +1,60 @@
+
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { View, Pressable, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback  } from 'react-native';
+import CategoriesScreen from './screens/CategoriesScreen';
+import MealsOverviewScreen from './screens/MealsOverviewScreen';
+import MealScreen from './screens/MealScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { CATEGORIES } from './data/dummy-data';
+import CategoryGridTile from './components/CategoryGridTile';
+import CategoriesPage from './screens/CategoriesPage';
+import { MyScreen } from './components/MyScreen';
 
-export default function App() {
-  function handlePress() {
-    console.error('test')
-    alert('test')
-  }
+const Stack = createNativeStackNavigator();
 
+function HomeScreen() {
   return (
-    <View pointerEvents="box-none"  style={styles.container}>
-      <Button title="Press me3" onPress={handlePress} />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
     </View>
   );
 }
 
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+        screenOptions={{          
+          headerStyle: { backgroundColor: '#351401'},
+          headerTintColor: 'white',
+          contentStyle: { backgroundColor: '#3f2f25'}
+          }}>
+        <Stack.Screen name="Categories" component={CategoriesScreen} 
+          options={{ title: "Categories" }} />
+        <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} 
+          options={({route, navigation}) => { 
+            return {
+              title: "Meals " + route.params.categoryId
+            }}}/>
+        <Stack.Screen name="Meal" component={MealScreen} options={{title: "Meal"}}/>
+      </Stack.Navigator>
+{/*         
+     <Pressable          
+       onPress={() => {console.log('pressed2')}}
+       style={styles.container}           
+     >
+       <Text>Test2</Text>
+    </Pressable>         */}
+    </NavigationContainer>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
+  container: {    
     flex: 1,
-    backgroundColor: '#aac',
+    backgroundColor: '#aaa',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -25,46 +62,11 @@ const styles = StyleSheet.create({
 
 
 
-// import React from 'react';
-// import {Text, View, Pressable} from 'react-native';
-// //import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// <CategoryGridTile category={CATEGORIES[0]} />
+    // <View style={styles.container}>
+    //   {/* <NavigationContainer>
+    //     <CategoriesScreen />
+    //   </NavigationContainer> */}
+    //   <CategoriesScreen />
+    // </View>
 
-
-// export default function App() {
-//     return (
-//         <View style={{padding: 50}}>
-//             <Pressable onPress={() => console.log("press")}>
-//             <View
-//                 style={{
-//                     backgroundColor: 'red',
-//                     width: 100,
-//                     height: 100,
-//                     justifyContent: 'center',
-//                     alignItems: 'center',
-//                 }}>
-//                 <Text>1</Text>
-//             </View>
-//             </Pressable>
-//             <View
-//                 style={{
-//                     backgroundColor: 'blue',
-//                     width: 100,
-//                     height: 100,
-//                     justifyContent: 'center',
-//                     alignItems: 'center',
-//                 }}>
-//                 <Text>2</Text>
-//             </View>
-//             <View
-//                 style={{
-//                     backgroundColor: 'green',
-//                     width: 100,
-//                     height: 100,
-//                     justifyContent: 'center',
-//                     alignItems: 'center',
-//                 }}>
-//                 <Text>3</Text>
-//             </View>
-//         </View>
-//     );
-// }
