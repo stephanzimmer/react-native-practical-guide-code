@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import MealDetails from './MealDetails';
+import MealDetails from '../MealDetail/MealDetails';
 
 function MealItem({
   id,
@@ -27,7 +27,7 @@ function MealItem({
   }
 
   return (
-    <View style={styles.mealItem}>
+    <View style={styles.mealItem}>      
       <Pressable
         android_ripple={{ color: '#ccc' }}
         style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
